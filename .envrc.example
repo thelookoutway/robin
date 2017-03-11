@@ -1,0 +1,4 @@
+PATH_add bin
+
+export SLACK_OAUTH_TOKEN=
+export SLACK_VERIFICATION_TOKEN=

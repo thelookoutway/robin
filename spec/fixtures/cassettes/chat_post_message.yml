@@ -1,0 +1,71 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://slack.com/api/chat.postMessage?attachments=%5B%7B%22text%22:%22Hello%22,%22actions%22:%5B%7B%22name%22:%22foo%22,%22text%22:%22foo%22,%22type%22:%22button%22,%22value%22:%22foo%22%7D%5D%7D%5D&channel=C12345&text=Hello&token=abcd-1234
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - application/json
+      User-Agent:
+      - robin (Ruby/2.3.1-x86_64-darwin16)
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '238'
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - private, no-cache, no-store, must-revalidate
+      Date:
+      - Fri, 10 Mar 2017 08:09:01 GMT
+      Expires:
+      - Mon, 26 Jul 1997 05:00:00 GMT
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer
+      Server:
+      - Apache
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Vary:
+      - Accept-Encoding
+      X-Accepted-Oauth-Scopes:
+      - chat:write:bot
+      X-Content-Type-Options:
+      - nosniff
+      X-Oauth-Scopes:
+      - identify,users:read,chat:write:bot
+      X-Slack-Backend:
+      - h
+      X-Slack-Req-Id:
+      - 16ac755f-70ca-400d-a5e3-c23e8e757b0b
+      X-Xss-Protection:
+      - '0'
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 6884828476070d32978b45d03c1cc437.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - 5krEB9w7eX3clO_SvT6mJMmeDdbSGXVTus5KBGNVWxDPeED6gHJPGg==
+    body:
+      encoding: ASCII-8BIT
+      string: '{"ok":true,"channel":"C12345","ts":"1489133341.000008","message":{"text":"Hello","username":"robin","bot_id":"B1","attachments":[{"text":"Hello","id":1,"actions":[{"id":"1","name":"foo","text":"foo","type":"button","value":"foo","style":""}],"fallback":"NO
+        FALLBACK DEFINED"}],"type":"message","subtype":"bot_message","ts":"1489133341.000008"}}'
+    http_version: 
+  recorded_at: Fri, 10 Mar 2017 08:09:02 GMT
+recorded_with: VCR 3.0.3

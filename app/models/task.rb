@@ -1,0 +1,19 @@
+class Task < ApplicationRecord
+  belongs_to :list
+  belongs_to :user
+
+  enum status: [:accepted, :reassigned, :archived]
+
+  validates :description, presence: true
+
+  scope :newest, -> { order(created_at: :desc) }
+  scope :not_archived, -> { where.not(status: :archived) }
+
+  def slack_channel_id
+    list.slack_channel_id
+  end
+
+  def slack_user_id
+    user.slack_id
+  end
+end

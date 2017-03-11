@@ -1,0 +1,9 @@
+outofdate:
+  slack_channel_id: C1
+  name: outofdate
+  users: aldhsu, alex, dave, tate
+
+test:
+  slack_channel_id: C2
+  name: test
+  users: tate
