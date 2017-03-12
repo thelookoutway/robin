@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170311085044) do
+ActiveRecord::Schema.define(version: 20170312102719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(version: 20170311085044) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "slack_channel_id", null: false
+    t.string "webhook_token", null: false
+    t.index ["webhook_token"], name: "index_lists_on_webhook_token", unique: true
   end
 
   create_table "lists_users", id: false, force: :cascade do |t|

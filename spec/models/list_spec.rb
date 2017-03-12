@@ -3,6 +3,20 @@ require "rails_helper"
 RSpec.describe List, type: :model do
   fixtures :lists, :users
 
+  it "generates a webhook_token before create" do
+    list = List.new(name: "foo", slack_channel_id: "C1")
+    expect(list.webhook_token).to be_nil
+    list.save!
+    expect(list.webhook_token).to be_present
+  end
+
+  it "does not regenerate the webhook_token on update" do
+    list = lists(:outofdate)
+    expect do
+      list.update!(name: "outofdate2")
+    end.to_not change { list.webhook_token }
+  end
+
   describe "#next_user" do
     let(:list) { lists(:outofdate) }
 

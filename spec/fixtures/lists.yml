@@ -2,8 +2,10 @@ outofdate:
   slack_channel_id: C1
   name: outofdate
   users: aldhsu, alex, dave, tate
+  webhook_token: 3c0b933a07a111f23a9304c08ec5d4cf82478841ea3eea7fc9ad9266ba49c9ea32c011273dc4c5fe782aeeac834a7754b0b82eaafc4da50ef3238c4548e22eb6
 
 test:
   slack_channel_id: C2
   name: test
   users: tate
+  webhook_token: 1991aeb94a03196f498469630827aad6497e3d2c4b5537f82e6b5eda2b6cf8ac4ac7e526dd1419fb0615af53e5fed79c07af204dafc86f81f752b53ea9ecb0d1
