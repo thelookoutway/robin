@@ -9,6 +9,10 @@ class Task < ApplicationRecord
   scope :newest, -> { order(created_at: :desc) }
   scope :not_archived, -> { where.not(status: :archived) }
 
+  def list_webhook_token
+    list.webhook_token
+  end
+
   def slack_channel_id
     list.slack_channel_id
   end

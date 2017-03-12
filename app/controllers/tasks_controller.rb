@@ -11,6 +11,6 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.permit(:list_id, :description)
+    params.permit(:list_webhook_token, :description)
   end
 end

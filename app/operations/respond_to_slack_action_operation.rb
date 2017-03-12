@@ -28,7 +28,7 @@ class RespondToSlackActionOperation < Operation::Base
     slack_action.task.reassigned!
     SlackMessage.new.post_task_reassigned(ts: slack_action.ts, task: slack_action.task)
     CreateTaskOperation.new.call(
-      list_id: slack_action.task.list_id,
+      list_webhook_token: slack_action.task.list_webhook_token,
       description: slack_action.task.description,
     )
   end

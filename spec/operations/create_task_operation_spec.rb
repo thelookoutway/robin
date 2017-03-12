@@ -26,7 +26,7 @@ RSpec.describe CreateTaskOperation do
 
     def call_operation
       described_class.new.call(
-        list_id: list.id,
+        list_webhook_token: list.webhook_token,
         description: "rails (5.0.2.rc1)",
       )
     end
