@@ -17,7 +17,7 @@ RSpec.describe RespondToSlackActionOperation do
         expect(UpdateSlackMessageJob).to have_been_enqueued_with_arguments(
           ts: "1488540956.000015",
           channel: task.slack_channel_id,
-          text: "*Task*\n```Hello```\n<@#{task.slack_user_id}> accepted.",
+          text: "*#{task.list_name}*\n```#{task.description}```\n✅ <@#{task.slack_user_id}> accepted.",
           attachments: [],
         )
       end
@@ -43,7 +43,7 @@ RSpec.describe RespondToSlackActionOperation do
         expect(UpdateSlackMessageJob).to have_been_enqueued_with_arguments(
           ts: "1488540956.000015",
           channel: task.slack_channel_id,
-          text: "*Task*\n```Hello```\n<@#{task.slack_user_id}> reassigned.",
+          text: "*#{task.list_name}*\n```#{task.description}```\n↪️ <@#{task.slack_user_id}> reassigned.",
           attachments: [],
         )
       end
@@ -64,7 +64,7 @@ RSpec.describe RespondToSlackActionOperation do
       end
     end
 
-    context "reassign" do
+    context "archive" do
       it "marks the task as archived" do
         call_operation_with_archive_value
         expect(task.reload).to be_archived
@@ -75,7 +75,7 @@ RSpec.describe RespondToSlackActionOperation do
         expect(UpdateSlackMessageJob).to have_been_enqueued_with_arguments(
           ts: "1488540956.000015",
           channel: task.slack_channel_id,
-          text: "*Task*\n```Hello```\n<@#{task.slack_user_id}> archived. <@#{task.slack_user_id}> will still be the next person to get assigned.",
+          text: "*#{task.list_name}*\n```#{task.description}```\n🗄 <@#{task.slack_user_id}> archived. <@#{task.slack_user_id}> will still be the next person to get assigned for #{task.list_name}.",
           attachments: [],
         )
       end

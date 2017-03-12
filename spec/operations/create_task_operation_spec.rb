@@ -10,7 +10,7 @@ RSpec.describe CreateTaskOperation do
       call_operation
       expect(CreateSlackMessageJob).to have_been_enqueued_with_arguments(
         channel: list.slack_channel_id,
-        text: "*New Task*\n```rails (5.0.2.rc1)```",
+        text: "*New #{list.name}*\n```rails (5.0.2.rc1)```",
       )
     end
 

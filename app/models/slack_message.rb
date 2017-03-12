@@ -2,7 +2,7 @@ class SlackMessage
   def post_task_assigned(task:)
     CreateSlackMessageJob.perform_later(
       channel: task.slack_channel_id,
-      text: "*New Task*\n```#{task.description}```",
+      text: "*New #{task.list_name}*\n```#{task.description}```",
       attachments: [
         {
           text: "<@#{task.slack_user_id}> Hey, I've got a new task for you. Can you do it?",
@@ -37,7 +37,7 @@ class SlackMessage
     UpdateSlackMessageJob.perform_later(
       ts: ts,
       channel: task.slack_channel_id,
-      text: "*Task*\n```#{task.description}```\n<@#{task.slack_user_id}> accepted.",
+      text: "*#{task.list_name}*\n```#{task.description}```\n✅ <@#{task.slack_user_id}> accepted.",
       attachments: []
     )
   end
@@ -46,7 +46,7 @@ class SlackMessage
     UpdateSlackMessageJob.perform_later(
       ts: ts,
       channel: task.slack_channel_id,
-      text: "*Task*\n```#{task.description}```\n<@#{task.slack_user_id}> reassigned.",
+      text: "*#{task.list_name}*\n```#{task.description}```\n↪️ <@#{task.slack_user_id}> reassigned.",
       attachments: []
     )
   end
@@ -55,7 +55,7 @@ class SlackMessage
     UpdateSlackMessageJob.perform_later(
       ts: ts,
       channel: task.slack_channel_id,
-      text: "*Task*\n```#{task.description}```\n<@#{task.slack_user_id}> archived. <@#{task.slack_user_id}> will still be the next person to get assigned.",
+      text: "*#{task.list_name}*\n```#{task.description}```\n🗄 <@#{task.slack_user_id}> archived. <@#{task.slack_user_id}> will still be the next person to get assigned for #{task.list_name}.",
       attachments: []
     )
   end
