@@ -31,7 +31,7 @@ class SlackAction
   end
 
   def extract_task(attributes)
-    Task.last
+    Task.find_by(id: attributes["callback_id"])
   end
 
   def extract_token(attributes)

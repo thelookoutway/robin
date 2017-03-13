@@ -9,3 +9,9 @@ test:
   name: test
   users: tate
   webhook_token: 1991aeb94a03196f498469630827aad6497e3d2c4b5537f82e6b5eda2b6cf8ac4ac7e526dd1419fb0615af53e5fed79c07af204dafc86f81f752b53ea9ecb0d1
+
+standup:
+  slack_channel_id: C2
+  name: standup
+  users: aldhsu, alex
+  webhook_token: d9dd5967b335de7858cad9b787a7eddf05a0a9d48a587af8b09e85544b7cba6c81fef7a749aed39dabb211c1d26243a576d3b05d71c1c00fbc3b2ce982f1d116

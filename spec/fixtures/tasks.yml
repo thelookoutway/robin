@@ -3,3 +3,14 @@ test1:
   list: test
   description: Hello
   status: accepted
+
+standup1:
+  user: aldhsu
+  list: standup
+  description: You start today
+  status: accepted
+
+standup2:
+  user: alex
+  list: standup
+  description: You start today
