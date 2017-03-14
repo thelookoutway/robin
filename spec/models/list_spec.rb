@@ -38,6 +38,14 @@ RSpec.describe List, type: :model do
       expect(list.next_user).to eq(users(:alex))
     end
 
+    it "is also the second user when the first task has not been actioned" do
+      task = create_tasks(:aldhsu).first
+      task.update(status: nil)
+      expect(task.status).to be_nil
+      expect(list.tasks.size).to eq(1)
+      expect(list.next_user).to eq(users(:alex))
+    end
+
     it "is the third user when the second user was previously assigned" do
       create_tasks(:aldhsu, :alex)
       expect(list.tasks.size).to eq(2)

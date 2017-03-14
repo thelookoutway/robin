@@ -7,7 +7,7 @@ class Task < ApplicationRecord
   validates :description, presence: true
 
   scope :newest, -> { order(created_at: :desc) }
-  scope :not_archived, -> { where.not(status: :archived) }
+  scope :not_archived, -> { where.not(status: :archived).or(Task.where(status: nil)) }
 
   def list_name
     list.name
