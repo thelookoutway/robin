@@ -2,46 +2,41 @@
 
 A Slack bot that assigns tasks round-robin.
 
-* There can be many lists. Each list posts to one channel.
-* There can be many users. Users are assigned to one or many lists.
-* Tasks are created against lists and assigned round robin to users on that
-  list.
+![](https://cloud.githubusercontent.com/assets/19860/24195853/16c57b46-0f47-11e7-833a-d2167680a467.png)
+
+You could use Robin to:
+
+* Assign someone to update a library when a new release happens.
+* Assign someone to do an ad-hoc task.
+* Assign someone to review a pull request.
+* Determine who is going first in standup today.
+
+Robin works by:
+
+* Exposing a webhook for creating tasks.
+* Tasks are created against lists. Each time a task is created it gets assigned
+  round-robin to users on that list.
 * The assigned user can accept, reassign, or archive the task.
+* There can be many lists. Each list has a name, users, and posts messages to a
+  channel.
+
+We recommend using [Zapier](https://zapier.com) as an intermediary for services
+which don't expose webhooks as first class citizens.
 
 ## HTTP API
 
-**Note** Only `POST /lists/:id/tasks` is supported at this stage.
-
-Create the first list:
-
-    $ curl -X POST \
-           -d 'name=outofdate&slack_channel_id=C1' \
-           'https://example.com/lists'
-
-Then add a user:
-
-    $ curl -X POST \
-           -d 'slack_name=tatey&slack_id=U1' \
-           'https://example.com/users'
-
-Then add the user to the list:
-
-    $ curl -X POST \
-           -d 'slack_id=U1' \
-           'https://example.com/lists/1/users'
-
-Then create a new task via the webhook:
+Create a new task via the webhook:
 
     $ curl -X POST \
            -d 'description=You should do this thing!' \
-           'https://example.com/lists/1/tasks'
+           'https://example.com/lists/:webhook_token/tasks'
 
 ## Developers
 
 ### System Dependencies
 
 * Ruby 2.4.0
-* Postgres 9.5
+* Postgres 9.6
 * [direnv](http://direnv.net/) _(optional, recommended)_
 
 ### Configuration
