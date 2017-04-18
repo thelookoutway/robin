@@ -51,3 +51,7 @@ See .envrc.example for the expected environment variables.
 ### Testing
 
     $ bin/rspec
+
+## Copyright
+
+Copyright (c) 2017 Five.Good.Friends. Pty Ltd. All rights reserved. Licensed under the MIT license.
