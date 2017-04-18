@@ -1,0 +1,22 @@
+language: ruby
+
+env:
+  global:
+    - SLACK_OAUTH_TOKEN=abcd-1234
+    - SLACK_VERIFICATION_TOKEN=secret
+
+addons:
+  postgresql: 9.6
+
+rvm:
+  - 2.4.0
+
+dist: trusty
+
+before_install:
+  - gem install bundler -v ">= 1.8.9"
+
+before_script:
+  - ./bin/rails db:drop db:setup
+
+script: ./bin/rspec
