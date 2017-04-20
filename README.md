@@ -1,4 +1,4 @@
-# Robin
+# Robin [![Build Status](https://travis-ci.org/fivegoodfriends/robin.svg?branch=master)](https://travis-ci.org/fivegoodfriends/robin)
 
 A Slack bot that assigns tasks round-robin.
 
