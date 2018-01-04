@@ -9,7 +9,7 @@ addons:
   postgresql: 9.6
 
 rvm:
-  - 2.4.0
+  - 2.5.0
 
 dist: trusty
 

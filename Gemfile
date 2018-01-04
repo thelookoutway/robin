@@ -1,11 +1,11 @@
 source "https://rubygems.org"
 
-ruby "2.4.0"
+ruby "2.5.0"
 
 gem "jbuilder"
 gem "pg"
 gem "puma"
-gem "rails", "~> 5.1.0.beta1"
+gem "rails", "~> 5.1.0"
 
 group :development do
   gem "listen", ">= 3.0.5", "< 3.2"
