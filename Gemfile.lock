@@ -160,14 +160,14 @@ PLATFORMS
 DEPENDENCIES
   byebug
   jbuilder
-  listen (>= 3.0.5, < 3.2)
+  listen
   pg
   puma
-  rails (~> 5.1.0)
+  rails (= 5.1.4)
   rspec-rails
   spring
   spring-commands-rspec
-  spring-watcher-listen (~> 2.0.0)
+  spring-watcher-listen
   vcr
   webmock
 
