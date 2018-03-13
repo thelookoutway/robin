@@ -41,7 +41,8 @@ Create a new task via the webhook:
 
 ### Configuration
 
-See .envrc.example for the expected environment variables.
+See .envrc.example for the expected environment variables. The example values
+have been used for testing.
 
 ### Development
 
