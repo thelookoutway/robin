@@ -5,21 +5,21 @@ ruby "2.5.0"
 gem "jbuilder"
 gem "pg"
 gem "puma"
-gem "rails", "~> 5.1.0"
+gem "rails", "5.1.5"
+
+group :development, :test do
+  gem "byebug"
+end
 
 group :development do
-  gem "listen", ">= 3.0.5", "< 3.2"
+  gem "listen"
   gem "spring"
   gem "spring-commands-rspec"
-  gem "spring-watcher-listen", "~> 2.0.0"
+  gem "spring-watcher-listen"
 end
 
 group :test do
+  gem "rspec-rails"
   gem "vcr", require: false
   gem "webmock", require: false
-end
-
-group :development, :test do
-  gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
-  gem "rspec-rails"
 end

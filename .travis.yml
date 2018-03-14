@@ -8,15 +8,8 @@ env:
 addons:
   postgresql: 9.6
 
-rvm:
-  - 2.5.0
-
 dist: trusty
 
-before_install:
-  - gem install bundler -v ">= 1.8.9"
-
-before_script:
-  - ./bin/rails db:drop db:setup
+before_script: ./bin/rails db:reset
 
 script: ./bin/rspec
