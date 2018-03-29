@@ -35,7 +35,7 @@ Create a new task via the webhook:
 
 ### System Dependencies
 
-* Ruby 2.5.0
+* Ruby 2.5.1
 * Postgres 9.6
 * [direnv](http://direnv.net/) _(optional, recommended)_
 
@@ -55,4 +55,4 @@ have been used for testing.
 
 ## Copyright
 
-Copyright (c) 2017 Five.Good.Friends. Pty Ltd. All rights reserved. Licensed under the MIT license.
+Copyright (c) 2017-18 Five.Good.Friends. Pty Ltd. All rights reserved. Licensed under the MIT license.
