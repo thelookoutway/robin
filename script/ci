@@ -1,0 +1,19 @@
+#!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
+
+export DISABLE_SPRING='true'
+export RAILS_ENV='test'
+
+echo '--- copy config'
+awk '!/PATH_add bin/' .envrc.example > .envrc
+source .envrc
+
+echo '--- run bundler'
+bundle check || bundle install --path vendor/bundle
+
+echo '-- reset database'
+./bin/rails db:reset
+
+echo '--- run specs'
+./bin/rspec
