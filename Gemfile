@@ -5,7 +5,7 @@ ruby "2.5.1"
 gem "jbuilder"
 gem "pg"
 gem "puma"
-gem "rails", "5.1.5"
+gem "rails", "5.1.6"
 
 group :development, :test do
   gem "byebug"
