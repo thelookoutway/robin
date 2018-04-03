@@ -51,6 +51,10 @@ See .envrc.example for the expected environment variables. The example values ha
 
     $ bin/rspec
 
+### Deploying
+
+This application is automatically deployed when commits are pushed to the master branch and the tests on the master branch pass.
+
 ## Copyright
 
 Copyright (c) 2017-18 Five.Good.Friends. Pty Ltd. All rights reserved. Licensed under the MIT license.

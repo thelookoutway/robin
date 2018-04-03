@@ -4,3 +4,6 @@
   agents:
     ruby: "2.5.1"
     postgres: "*"
+- name: ":heroku: Deploy"
+  command: "./script/deploy"
+  branches: "master"
