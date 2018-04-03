@@ -1,4 +1,4 @@
-# Robin [![Build Status](https://travis-ci.org/fivegoodfriends/robin.svg?branch=master)](https://travis-ci.org/fivegoodfriends/robin)
+# Robin [![Build status](https://badge.buildkite.com/5739e2b70c8bd37fa6983dcc3d5d84027431b05204d6f4c26d.svg)](https://buildkite.com/fivegoodfriends/robin)
 
 A Slack bot that assigns tasks round-robin.
 
@@ -20,8 +20,7 @@ Robin works by:
 * There can be many lists. Each list has a name, users, and posts messages to a
   channel.
 
-We recommend using [Zapier](https://zapier.com) as an intermediary for services
-which don't expose webhooks as first class citizens.
+We recommend using [Zapier](https://zapier.com) as an intermediary for services which don't expose webhooks as first class citizens.
 
 ## HTTP API
 
@@ -41,8 +40,7 @@ Create a new task via the webhook:
 
 ### Configuration
 
-See .envrc.example for the expected environment variables. The example values
-have been used for testing.
+See .envrc.example for the expected environment variables. The example values have been used for testing.
 
 ### Development
 

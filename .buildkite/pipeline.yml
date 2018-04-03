@@ -1,0 +1,6 @@
+---
+- name: ":rspec: CI"
+  command: "./script/ci"
+  agents:
+    ruby: "2.5.1"
+    postgres: "*"
