@@ -30,5 +30,23 @@ RSpec.describe CreateTaskOperation do
         description: "rails (5.0.2.rc1)",
       )
     end
+
+    context "when excluding a user" do
+      let(:list){ lists(:outofdate) }
+
+      it "does not assign an excluded user" do
+        expect(list.tasks).to be_empty
+
+        expect do
+          described_class.new.call(
+            list_webhook_token: list.webhook_token,
+            description:"asdf",
+            excluded_user_name:"aldhsu",
+          )
+        end.to change {Task.count}.by(1)
+
+        expect(Task.last.user).to eq(users(:alex))
+      end
+    end
   end
 end

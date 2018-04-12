@@ -15,3 +15,9 @@ standup:
   name: standup
   users: aldhsu, alex
   webhook_token: d9dd5967b335de7858cad9b787a7eddf05a0a9d48a587af8b09e85544b7cba6c81fef7a749aed39dabb211c1d26243a576d3b05d71c1c00fbc3b2ce982f1d116
+
+empty:
+  slack_channel_id: C2
+  name: empty
+  users:
+  webhook_token: 29dd5967b335de7858cad9b787a7eddf05a0a9d48a587af8b09e85544b7cba6c81fef7a749aed39dabb211c1d26243a576d3b05d71c1c00fbc3b2ce982f1d116
