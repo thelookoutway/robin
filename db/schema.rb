@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20180428000401) do
     t.string "slack_name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "excluded_at"
     t.index ["slack_id"], name: "index_users_on_slack_id", unique: true
   end
 
