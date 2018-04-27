@@ -6,7 +6,7 @@ class List < ApplicationRecord
   validates :slack_channel_id, presence: true
 
   before_create :generate_webhook_token
-  
+
   def next_user(excluded_user_name = nil)
     list_users = users.alphabetically.cycle(2).to_a
     latest_task_user = tasks.not_archived.newest.first&.user

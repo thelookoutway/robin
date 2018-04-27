@@ -12,9 +12,8 @@ RSpec.describe List, type: :model do
 
   it "does not regenerate the webhook_token on update" do
     list = lists(:outofdate)
-    expect do
-      list.update!(name: "outofdate2")
-    end.to_not change { list.webhook_token }
+    expect { list.update!(name: "outofdate2") }
+      .not_to change { list.webhook_token }
   end
 
   describe "#next_user" do
