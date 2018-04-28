@@ -41,7 +41,7 @@ RSpec.describe CreateTaskOperation do
           described_class.new.call(
             list_webhook_token: list.webhook_token,
             description: "asdf",
-            excluded_user_name: "aldhsu",
+            instigator_slack_id: users(:aldhsu).slack_id,
           )
         end.to change { Task.count }.by(1)
 

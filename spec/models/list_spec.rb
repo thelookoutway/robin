@@ -72,29 +72,33 @@ RSpec.describe List, type: :model do
 
     it "is the second user when we exclude the first user on a new list" do
       expect(list.tasks).to be_empty
-      expect(list.next_user).to eq(users(:aldhsu))
-      expect(list.next_user("aldhsu")).to eq(users(:alex))
+      allen = users(:aldhsu)
+      expect(list.next_user).to eq(allen)
+      expect(list.next_user(allen.slack_id)).to eq(users(:alex))
     end
 
     it "is not the excluded user even when their turn is due" do
       create_tasks(:aldhsu)
       expect(list.tasks.size).to eq(1)
-      expect(list.next_user).to eq(users(:alex))
-      expect(list.next_user("alex")).to eq(users(:dave))
+      alex = users(:alex)
+      expect(list.next_user).to eq(alex)
+      expect(list.next_user(alex.slack_id)).to eq(users(:dave))
     end
 
     it "is not the excluded user even when their turn is due, covering list cycle" do
       create_tasks(:aldhsu, :alex, :dave)
       expect(list.tasks.size).to eq(3)
-      expect(list.next_user).to eq(users(:tate))
-      expect(list.next_user("tatey")).to eq(users(:aldhsu))
+      tate = users(:tate)
+      expect(list.next_user).to eq(tate)
+      expect(list.next_user(tate.slack_id)).to eq(users(:aldhsu))
     end
 
     it "is not the excluded user even when their turn is due, covering list cycle" do
       create_tasks(:aldhsu, :alex, :dave, :tate)
       expect(list.tasks.size).to eq(4)
-      expect(list.next_user).to eq(users(:aldhsu))
-      expect(list.next_user("aldhsu")).to eq(users(:alex))
+      allen = users(:aldhsu)
+      expect(list.next_user).to eq(allen)
+      expect(list.next_user(allen.slack_id)).to eq(users(:alex))
     end
 
     it "is not affected by an irrelevant exclusion" do
