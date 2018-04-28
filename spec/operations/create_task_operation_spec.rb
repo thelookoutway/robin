@@ -32,7 +32,7 @@ RSpec.describe CreateTaskOperation do
     end
 
     context "when excluding a user" do
-      let(:list){ lists(:outofdate) }
+      let(:list) { lists(:outofdate) }
 
       it "does not assign an excluded user" do
         expect(list.tasks).to be_empty
@@ -40,10 +40,10 @@ RSpec.describe CreateTaskOperation do
         expect do
           described_class.new.call(
             list_webhook_token: list.webhook_token,
-            description:"asdf",
-            excluded_user_name:"aldhsu",
+            description: "asdf",
+            instigator_slack_id: users(:aldhsu).slack_id,
           )
-        end.to change {Task.count}.by(1)
+        end.to change { Task.count }.by(1)
 
         expect(Task.last.user).to eq(users(:alex))
       end

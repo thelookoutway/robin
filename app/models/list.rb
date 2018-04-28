@@ -6,14 +6,14 @@ class List < ApplicationRecord
   validates :slack_channel_id, presence: true
 
   before_create :generate_webhook_token
-  
-  def next_user(excluded_user_name = nil)
+
+  def next_user(excluded_slack_id = nil)
     list_users = users.alphabetically.cycle(2).to_a
     latest_task_user = tasks.not_archived.newest.first&.user
     next_index = list_users.index(latest_task_user)&.succ || 0
 
     next_user =
-      if list_users[next_index]&.slack_name == excluded_user_name
+      if list_users[next_index]&.slack_id == excluded_slack_id
         list_users[next_index.succ]
       else
         list_users[next_index]
