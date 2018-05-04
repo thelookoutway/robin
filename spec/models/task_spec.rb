@@ -40,4 +40,15 @@ RSpec.describe Task, type: :model do
       expect(task.save).to eq(true)
     end
   end
+
+  describe "#user_id" do
+    it "may not have a user" do
+      task = Task.new(
+        description: "hh",
+        user:nil,
+        list: lists(:outofdate),
+      )
+      expect(task.save).to eq(true)
+    end
+  end
 end
