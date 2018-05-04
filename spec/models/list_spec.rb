@@ -172,6 +172,27 @@ RSpec.describe List, type: :model do
     end
   end
 
+  describe "#instigator_excluded?" do
+    it "returns true if instigator must be excluded from selection" do
+      listTest = List.new(
+        users: [users(:alex)],
+        slack_channel_id:"C1",
+        name: "instigatorTest",
+        instigator_excluded: true,
+      )
+      expect(listTest.instigator_excluded?).to eq(true)
+    end
+
+    it "defaults to false" do
+      listTest = List.new(
+        users: [users(:alex)],
+        slack_channel_id:"C1",
+        name: "instigatorTest",
+      )
+      expect(listTest.instigator_excluded?).to eq(false)
+    end
+  end
+
   def create_tasks(*keys)
     keys.map do |key|
       list.tasks.create!(description: "rails (5.0.2.rc1)", user: users(key), status: :accepted)
