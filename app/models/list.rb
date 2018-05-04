@@ -22,6 +22,13 @@ class List < ApplicationRecord
     next_user || list_users.first
   end
 
+  def ordered_users
+    list_users = users.alphabetically.to_a
+    latest_task_user = tasks.not_archived.newest.first&.user
+    count = list_users.index(latest_task_user)&.succ || 0
+    list_users.rotate(count)
+  end
+
   private
 
   def generate_webhook_token
