@@ -1,6 +1,7 @@
 class Task < ApplicationRecord
   belongs_to :list
   belongs_to :user
+  belongs_to :instigator, class_name: "User", optional: true
 
   enum status: [:accepted, :reassigned, :archived]
 

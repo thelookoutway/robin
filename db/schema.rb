@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180428000401) do
+ActiveRecord::Schema.define(version: 20180504011259) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,8 +25,8 @@ ActiveRecord::Schema.define(version: 20180428000401) do
   end
 
   create_table "lists_users", id: false, force: :cascade do |t|
-    t.integer "list_id", null: false
-    t.integer "user_id", null: false
+    t.bigint "list_id", null: false
+    t.bigint "user_id", null: false
     t.index ["list_id", "user_id"], name: "index_lists_users_on_list_id_and_user_id", unique: true
     t.index ["user_id"], name: "index_lists_users_on_user_id"
   end
@@ -38,6 +38,8 @@ ActiveRecord::Schema.define(version: 20180428000401) do
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.integer "status"
+    t.bigint "instigator_id"
+    t.index ["instigator_id"], name: "index_tasks_on_instigator_id"
     t.index ["list_id"], name: "index_tasks_on_list_id"
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
@@ -55,4 +57,5 @@ ActiveRecord::Schema.define(version: 20180428000401) do
   add_foreign_key "lists_users", "users"
   add_foreign_key "tasks", "lists"
   add_foreign_key "tasks", "users"
+  add_foreign_key "tasks", "users", column: "instigator_id"
 end
