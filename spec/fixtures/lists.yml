@@ -21,3 +21,10 @@ empty:
   name: empty
   users:
   webhook_token: 29dd5967b335de7858cad9b787a7eddf05a0a9d48a587af8b09e85544b7cba6c81fef7a749aed39dabb211c1d26243a576d3b05d71c1c00fbc3b2ce982f1d116
+
+pull_request:
+  slack_channel_id: C3
+  name: pull_request
+  users: aldhsu, alex, dave
+  webhook_token: 77b4dcfd012abd93f38ab9aea18b3ca950893c124c278fc697ce93bb489e1f518057946fb02f7764578c646759aeaa89bbfa9d1c73989096fafe394fdd90ee7f
+  instigator_excluded: true

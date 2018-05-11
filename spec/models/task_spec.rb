@@ -51,4 +51,87 @@ RSpec.describe Task, type: :model do
       expect(task.save).to eq(true)
     end
   end
+
+  describe "#assign_user" do
+    it "excludes the instigator if requested by the list" do
+      list = lists(:pull_request)
+      task = Task.new(
+        description: "asdf",
+        list: list,
+        instigator: users(:aldhsu),
+        user: nil,
+      )
+      expect(list.ordered_users.first).to eq(users(:aldhsu))
+      expect(task.assign_user).to eq(users(:alex))
+    end
+
+    it "assigns the instigator if they are due and the list does not exclude them" do
+      list = lists(:outofdate)
+      task = Task.new(
+        description: "asdf",
+        list: list,
+        instigator: users(:aldhsu),
+        user: nil,
+      )
+      expect(list.ordered_users.first).to eq(users(:aldhsu))
+      expect(task.assign_user).to eq(users(:aldhsu))
+    end
+
+    it "eliminates any excluded users and instigator" do
+      list = lists(:pull_request)
+      task = Task.new(
+        description: "asdf",
+        list: list,
+        instigator: users(:aldhsu),
+        user: nil,
+      )
+      alex = users(:alex)
+      alex.update!(excluded_at: Time.current.beginning_of_minute)
+
+      expect(list.ordered_users.first).to eq(users(:aldhsu))
+      expect(list.ordered_users.second).to eq(users(:alex))
+      expect(alex.excluded?).to eq(true)
+      expect(task.assign_user).to eq(users(:dave))
+    end
+
+    it "eliminates any excluded users and not the instigator" do
+      list = lists(:outofdate)
+      task = Task.new(
+        description: "asdf",
+        list: list,
+        instigator: users(:alex),
+        user: nil,
+      )
+      aldhsu = users(:aldhsu)
+      aldhsu.update!(excluded_at: Time.current.beginning_of_minute)
+      expect(list.ordered_users.first).to eq(users(:aldhsu))
+      expect(aldhsu.excluded?).to eq(true)
+      expect(task.assign_user).to eq(users(:alex))
+    end
+
+    it "is not affected by an irrelevant exclusion" do
+      list = lists(:pull_request)
+      task = Task.new(
+        description: "asdf",
+        list: list,
+        instigator: users(:alex),
+        user: nil,
+      )
+      alex = users(:alex)
+      alex.update!(excluded_at: Time.current.beginning_of_minute)
+      expect(list.ordered_users.first).to eq(users(:aldhsu))
+      expect(task.assign_user).to eq(users(:aldhsu))
+    end
+
+    it "returns nil if no users in list" do
+      list = lists(:empty)
+      task = Task.new(
+        description: "asdf",
+        list: list,
+        instigator: users(:alex),
+        user: nil,
+      )
+      expect(task.assign_user).to eq(nil)
+    end
+  end
 end
