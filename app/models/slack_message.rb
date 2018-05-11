@@ -33,6 +33,13 @@ class SlackMessage
     )
   end
 
+  def post_task_unassigned(task:)
+    CreateSlackMessageJob.perform_later(
+      channel: task.slack_channel_id,
+      text: "*New #{task.list_name}*\n```#{task.description}```\nTASK UNASSIGNED. No suitable candidates available.",
+    )
+  end
+
   def post_task_accepted(ts:, task:)
     UpdateSlackMessageJob.perform_later(
       ts: ts,
