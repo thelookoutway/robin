@@ -32,10 +32,11 @@ RSpec.describe CreateTaskOperation do
     end
 
     context "when excluding a user" do
-      let(:list) { lists(:outofdate) }
+      let(:list) { lists(:pull_request) }
 
       it "does not assign an excluded user" do
         expect(list.tasks).to be_empty
+        expect(list.instigator_excluded?).to eq(true)
 
         expect do
           described_class.new.call(
@@ -46,6 +47,17 @@ RSpec.describe CreateTaskOperation do
         end.to change { Task.count }.by(1)
 
         expect(Task.last.user).to eq(users(:alex))
+      end
+    end
+
+    context "when no candidates available" do
+      it "still posts the unassigned task to Slack" do
+        users(:tate).update(excluded_at: Time.current.beginning_of_minute)
+        call_operation
+        expect(CreateSlackMessageJob).to have_been_enqueued_with_arguments(
+          channel: list.slack_channel_id,
+          text: "*New #{list.name}*\n```rails (5.0.2.rc1)```\nTASK UNASSIGNED. No suitable candidates available."
+        )
       end
     end
   end

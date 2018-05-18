@@ -6,4 +6,9 @@ class User < ApplicationRecord
   validates :slack_name, presence: true
 
   scope :alphabetically, -> { order(slack_name: :asc) }
+
+  def excluded?
+    return false if excluded_at.nil?
+    excluded_at <= Time.current
+  end
 end
