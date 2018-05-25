@@ -52,6 +52,37 @@ RSpec.describe Task, type: :model do
     end
   end
 
+  describe ".exclude_unassigned" do
+    it "excludes tasks where status and user is nil" do
+      Task.destroy_all
+
+      defaults = {
+        description: "hh",
+        list: lists(:pull_request),
+      }
+      t1 = Task.create!(defaults.merge(status: nil, user: users(:alex)))
+      t2 = Task.create!(defaults.merge(status: nil, user: nil))
+      t3 = Task.create!(defaults.merge(status: :accepted, user: users(:alex)))
+      t4 = Task.create!(defaults.merge(status: :accepted, user: nil))
+      expect(Task.exclude_unassigned).to contain_exactly(t1, t3, t4)
+    end
+  end
+
+  describe ".not_archived" do
+    it "excludes archived tasks" do
+      Task.destroy_all
+      defaults = {
+        description: "hh",
+        list: lists(:pull_request),
+      }
+      t1 = Task.create!(defaults.merge(status: nil))
+      t2 = Task.create!(defaults.merge(status: :archived))
+      t3 = Task.create!(defaults.merge(status: :reassigned))
+      t4 = Task.create!(defaults.merge(status: :accepted))
+      expect(Task.not_archived).to contain_exactly(t1, t3, t4)
+    end
+  end
+
   describe "#assign_user" do
     it "excludes the instigator if requested by the list" do
       list = lists(:pull_request)
