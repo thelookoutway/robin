@@ -60,6 +60,13 @@ RSpec.describe List, type: :model do
       expect(list.tasks.count).to eq(0)
       expect(list.ordered_users).to eq([users(:aldhsu), users(:alex), users(:dave), users(:tate)])
     end
+
+    it "is not affected by 'unassigned' tasks" do
+      list.tasks.create!(description: "asdf", user: users(:aldhsu), status: :reassigned)
+      list.tasks.create!(description: "rails (5.0.2.rc1)", user: nil, status: nil)
+      expect(list.tasks.size).to eq(2)
+      expect(list.ordered_users).to eq([users(:alex), users(:dave), users(:tate), users(:aldhsu)])
+    end
   end
 
   describe "#instigator_excluded?" do
