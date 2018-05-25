@@ -9,6 +9,7 @@ class Task < ApplicationRecord
 
   scope :newest, -> { order(created_at: :desc) }
   scope :not_archived, -> { where.not(status: :archived).or(Task.where(status: nil)) }
+  scope :exclude_unassigned, -> { where.not(status: nil).or(Task.where.not(user_id: nil)) }
 
   def assign_user
     update(user: list.ordered_users.detect { |user| acceptable_candidate?(user) })
