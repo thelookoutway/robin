@@ -2,10 +2,11 @@ class List < ApplicationRecord
   has_many :tasks, dependent: :destroy
   has_and_belongs_to_many :users
 
+  before_validation :generate_webhook_token, on: :create
+
   validates :name, presence: true
   validates :slack_channel_id, presence: true
-
-  before_create :generate_webhook_token
+  validates :webhook_token, presence: true, uniqueness: true
 
   def ordered_users
     list_users = users.alphabetically.to_a
@@ -17,12 +18,11 @@ class List < ApplicationRecord
   private
 
   def generate_webhook_token
-    loop do
-      new_webhook_token = SecureRandom.hex(64)
-      if List.where(webhook_token: new_webhook_token).empty?
-        self.webhook_token = new_webhook_token
-        break
-      end
+    return if webhook_token.present?
+
+    self.webhook_token = loop do
+      webhook_token = SecureRandom.hex(64)
+      break webhook_token unless List.where(webhook_token: webhook_token).exists?
     end
   end
 end
