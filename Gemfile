@@ -4,12 +4,9 @@ ruby "2.5.1"
 
 gem "jbuilder"
 gem "pg"
+gem "pry-rails"
 gem "puma"
 gem "rails", "5.2.0"
-
-group :development, :test do
-  gem "byebug"
-end
 
 group :development do
   gem "listen"
