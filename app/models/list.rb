@@ -10,7 +10,7 @@ class List < ApplicationRecord
 
   def ordered_users
     list_users = users.alphabetically.to_a
-    latest_task_user = tasks.exclude_unassigned.not_archived.newest.first&.user
+    latest_task_user = tasks.not_unassigned.not_archived.newest.first&.user
     count = list_users.index(latest_task_user)&.succ || 0
     list_users.rotate(count)
   end

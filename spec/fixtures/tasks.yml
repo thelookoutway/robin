@@ -14,3 +14,4 @@ standup2:
   user: alex
   list: standup
   description: You start today
+  status: assigned
