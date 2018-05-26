@@ -11,31 +11,22 @@ class Task < ApplicationRecord
   scope :not_archived, -> { where.not(status: :archived).or(Task.where(status: nil)) }
   scope :exclude_unassigned, -> { where.not(status: nil).or(Task.where.not(user_id: nil)) }
 
+  delegate :name, :webhook_token, to: :list, prefix: true
+  delegate :slack_channel_id, to: :list
+
   def assign_user
     update(user: list.ordered_users.detect { |user| acceptable_candidate?(user) })
     user
   end
 
-  def list_name
-    list.name
-  end
-
-  def list_webhook_token
-    list.webhook_token
-  end
-
-  def slack_channel_id
-    list.slack_channel_id
-  end
-
   def slack_user_id
-    user.slack_id
+    user&.slack_id
   end
 
   private
 
-  def acceptable_candidate?(candidate)
-    !candidate.excluded? &&
-      !(list.instigator_excluded? && candidate == instigator)
+  def acceptable_candidate?(user)
+    !user.excluded? &&
+      !(list.instigator_excluded? && user == instigator)
   end
 end

@@ -17,6 +17,15 @@ RSpec.describe Task, type: :model do
       task = Task.new(user: user)
       expect(task.slack_user_id).to eq("U1")
     end
+
+    it "is nil if without user" do
+      task = Task.create!(
+        description: "asdf",
+        list: lists(:test),
+        user: nil,
+      )
+      expect(task.slack_user_id).to be_nil
+    end
   end
 
   describe "#instigator_id" do
