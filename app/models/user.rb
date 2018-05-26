@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   has_and_belongs_to_many :lists
-  has_many :tasks
+  has_many :tasks, dependent: :destroy
 
   validates :slack_id, presence: true
   validates :slack_name, presence: true

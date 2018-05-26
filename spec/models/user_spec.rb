@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe User, type: :model do
   fixtures :users
-  
+
   describe "#excluded?" do
     it "returns true for current excluded user data" do
       user = users(:alex)
