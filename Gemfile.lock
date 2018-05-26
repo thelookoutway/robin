@@ -46,7 +46,7 @@ GEM
       public_suffix (>= 2.0.2, < 4.0)
     arel (9.0.0)
     builder (3.2.3)
-    byebug (10.0.2)
+    coderay (1.1.2)
     concurrent-ruby (1.0.5)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
@@ -83,6 +83,11 @@ GEM
     nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
     pg (1.0.0)
+    pry (0.11.3)
+      coderay (~> 1.1.0)
+      method_source (~> 0.9.0)
+    pry-rails (0.3.6)
+      pry (>= 0.10.4)
     public_suffix (3.0.2)
     puma (3.11.4)
     rack (2.0.5)
@@ -166,10 +171,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  byebug
   jbuilder
   listen
   pg
+  pry-rails
   puma
   rails (= 5.2.0)
   rspec-rails
