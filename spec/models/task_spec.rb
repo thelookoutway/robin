@@ -17,15 +17,26 @@ RSpec.describe Task, type: :model do
       task = Task.new(user: user)
       expect(task.slack_user_id).to eq("U1")
     end
+
+    it "is nil if without user" do
+      task = Task.create!(
+        description: "asdf",
+        list: lists(:test),
+        status: :unassigned,
+        user: nil,
+      )
+      expect(task.slack_user_id).to be_nil
+    end
   end
 
   describe "#instigator_id" do
     it "may have instigator" do
       task = Task.new(
         description: "hh",
-        user: users(:alex),
         instigator: users(:tate),
         list: lists(:outofdate),
+        status: :assigned,
+        user: users(:alex),
       )
       expect(task.save).to eq(true)
     end
@@ -33,53 +44,77 @@ RSpec.describe Task, type: :model do
     it "may not have instigator" do
       task = Task.new(
         description: "hh",
-        user: users(:alex),
         instigator: nil,
         list: lists(:outofdate),
+        status: :assigned,
+        user: users(:alex),
       )
       expect(task.save).to eq(true)
     end
   end
 
   describe "#user_id" do
-    it "may not have a user" do
+    it "may be nil if unassigned" do
       task = Task.new(
         description: "hh",
-        user:nil,
         list: lists(:outofdate),
+        user: nil,
+        status: :unassigned,
       )
       expect(task.save).to eq(true)
     end
   end
 
-  describe ".exclude_unassigned" do
-    it "excludes tasks where status and user is nil" do
-      Task.destroy_all
+  describe ".not_unassigned" do
+    before(:example) { Task.destroy_all }
 
-      defaults = {
-        description: "hh",
+    let(:defaults) do
+      {
+        description: "asdf",
         list: lists(:pull_request),
+        user: users(:alex),
       }
-      t1 = Task.create!(defaults.merge(status: nil, user: users(:alex)))
-      t2 = Task.create!(defaults.merge(status: nil, user: nil))
-      t3 = Task.create!(defaults.merge(status: :accepted, user: users(:alex)))
-      t4 = Task.create!(defaults.merge(status: :accepted, user: nil))
-      expect(Task.exclude_unassigned).to contain_exactly(t1, t3, t4)
+    end
+
+    it "excludes unassigned tasks" do
+      Task.create!(defaults.merge(status: :unassigned, user: nil))
+      expect(Task.not_unassigned).to be_empty
+    end
+
+    Task.statuses.except(:unassigned).each_key do |status|
+      it "includes #{status} tasks" do
+        task = Task.create!(defaults.merge(status: status.to_sym))
+        expect(Task.not_unassigned).to contain_exactly(task)
+      end
     end
   end
 
   describe ".not_archived" do
-    it "excludes archived tasks" do
-      Task.destroy_all
-      defaults = {
-        description: "hh",
+    before(:example) { Task.destroy_all }
+
+    let(:defaults) do
+      {
+        description: "asdf",
         list: lists(:pull_request),
+        user: users(:alex),
       }
-      t1 = Task.create!(defaults.merge(status: nil))
-      t2 = Task.create!(defaults.merge(status: :archived))
-      t3 = Task.create!(defaults.merge(status: :reassigned))
-      t4 = Task.create!(defaults.merge(status: :accepted))
-      expect(Task.not_archived).to contain_exactly(t1, t3, t4)
+    end
+
+    it "excludes archived tasks" do
+      Task.create!(defaults.merge(status: :archived))
+      expect(Task.not_archived).to be_empty
+    end
+
+    Task.statuses.except(:archived, :unassigned).each_key do |status|
+      it "includes #{status} tasks" do
+        task = Task.create!(defaults.merge(status: status.to_sym))
+        expect(Task.not_archived).to contain_exactly(task)
+      end
+    end
+
+    it "includes unassigned tasks" do
+      task = Task.create!(defaults.merge(status: :unassigned, user: nil))
+      expect(Task.not_archived).to contain_exactly(task)
     end
   end
 

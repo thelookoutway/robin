@@ -3,19 +3,44 @@ require "rails_helper"
 RSpec.describe List, type: :model do
   fixtures :lists, :users
 
-  it "generates a webhook_token before create" do
-    list = List.new(name: "foo", slack_channel_id: "C1")
-    expect(list.webhook_token).to be_nil
-    list.save!
-    expect(list.webhook_token).to be_present
-  end
+  describe "#webhook_token" do
+    it "generates webhook_token before create" do
+      list = List.new(name: "foo", slack_channel_id: "C1")
+      expect(list.webhook_token).to be_nil
+      list.save!
+      expect(list.webhook_token).to be_present
+    end
 
-  it "does not regenerate the webhook_token on update" do
-    list = lists(:outofdate)
-    expect { list.update!(name: "outofdate2") }
-      .not_to change { list.webhook_token }
-  end
+    it "does not regenerate webhook_token on update" do
+      list = lists(:outofdate)
+      expect { list.update!(name: "outofdate2") }
+        .not_to change { list.webhook_token }
+    end
 
+    it "accepts webhook_token on creation" do
+      list = List.create!(
+        name: "asdf",
+        slack_channel_id: "C1",
+        webhook_token: "abc123",
+      )
+      expect(list.webhook_token).to eq("abc123")
+    end
+
+    it "must be unique" do
+      List.create!(
+        name: "asdf",
+        slack_channel_id: "C1",
+        webhook_token: "abc123"
+      )
+      list = List.new(
+        name: "qwer",
+        slack_channel_id: "C2",
+        webhook_token: "abc123"
+      )
+      expect(list).to be_invalid
+      expect(list.errors[:webhook_token]).to include("has already been taken")
+    end
+  end
 
   describe "#ordered_users" do
     let(:list) { lists(:outofdate) }
@@ -61,9 +86,9 @@ RSpec.describe List, type: :model do
       expect(list.ordered_users).to eq([users(:aldhsu), users(:alex), users(:dave), users(:tate)])
     end
 
-    it "is not affected by 'unassigned' tasks" do
+    it "is not affected by unassigned tasks" do
       list.tasks.create!(description: "asdf", user: users(:aldhsu), status: :reassigned)
-      list.tasks.create!(description: "rails (5.0.2.rc1)", user: nil, status: nil)
+      list.tasks.create!(description: "rails (5.0.2.rc1)", user: nil, status: :unassigned)
       expect(list.tasks.size).to eq(2)
       expect(list.ordered_users).to eq([users(:alex), users(:dave), users(:tate), users(:aldhsu)])
     end

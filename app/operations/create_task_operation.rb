@@ -6,16 +6,18 @@ class CreateTaskOperation < Operation::Base
     task = list.tasks.build(
       description: params[:description],
       instigator: User.find_by(slack_id: params[:instigator_slack_id]),
+      status: :unassigned,
     )
 
     if task.save
       task.assign_user
 
-      if task.user.nil?
-        SlackMessage.new.post_task_unassigned(task: task)
-      else
-        SlackMessage.new.post_task_assigned(task: task)
+      case task.status
+      when "assigned" then SlackMessage.new.post_task_assigned(task: task)
+      when "unassigned" then SlackMessage.new.post_task_unassigned(task: task)
+      else fail "unexpected status on a new task: #{task.status.inspect}"
       end
+
       success
     else
       failure

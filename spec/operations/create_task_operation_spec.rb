@@ -14,9 +14,9 @@ RSpec.describe CreateTaskOperation do
       )
     end
 
-    it "creates a task with a nil status" do
+    it "creates an assigned task" do
       expect { call_operation }.to change { Task.count }.by(1)
-      expect(Task.last.status).to be_nil
+      expect(Task.last).to be_assigned
     end
 
     it "is a success" do
@@ -51,8 +51,16 @@ RSpec.describe CreateTaskOperation do
     end
 
     context "when no candidates available" do
-      it "still posts the unassigned task to Slack" do
+      before(:example) do
         users(:tate).update(excluded_at: Time.current.beginning_of_minute)
+      end
+
+      it "creates an unassigned task" do
+        expect { call_operation }.to change { Task.count }.by(1)
+        expect(Task.last).to be_unassigned
+      end
+
+      it "still posts the unassigned task to Slack" do
         call_operation
         expect(CreateSlackMessageJob).to have_been_enqueued_with_arguments(
           channel: list.slack_channel_id,
