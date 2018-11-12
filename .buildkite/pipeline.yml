@@ -2,7 +2,7 @@
 - name: ":rspec: CI"
   command: "./script/ci"
   agents:
-    ruby: "2.5.1"
+    ruby: "2.5.3"
     postgres: "*"
 
 - wait
