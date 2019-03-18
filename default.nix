@@ -2,8 +2,8 @@ with import <nixpkgs> {};
 
 let
   nixpkgs = import (builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/7d141ec3269d34484fd1b98a8c67d9f71811ebe6.tar.gz";
-    sha256 = "1xncgypvsxk87dr1ryjc3b2y4644g1036qkvbmi5qapk013c2x5i";
+    url = "https://github.com/NixOS/nixpkgs/archive/d4559c372d99a84b6aec5d4b679e1248078bc44a.tar.gz";
+    sha256 = "047q008613bldh041csp5g3bwsim8hnz0xh2i6zd25l0wvm6b5v7";
   }) {};
 
   ruby = nixpkgs.ruby_2_6;
