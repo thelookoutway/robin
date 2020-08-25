@@ -152,7 +152,7 @@ GEM
       rspec-support (~> 3.9)
     rspec-support (3.9.3)
     safe_yaml (1.0.5)
-    spring (2.1.0)
+    spring (2.1.1)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
     spring-watcher-listen (2.0.1)
