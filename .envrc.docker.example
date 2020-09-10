@@ -1,0 +1,4 @@
+# Change me at .envrc.docker.example
+
+export PGHOST=localhost
+export PGPASSWORD=password

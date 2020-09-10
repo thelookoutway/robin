@@ -1,8 +1,8 @@
 ---
 - name: ":rspec: CI"
-  command: "./script/ci"
+  command: "nix-shell --run ./script/ci"
   agents:
-    ruby: "2.6.5"
+    nix: true
     postgres: "*"
 
 - wait

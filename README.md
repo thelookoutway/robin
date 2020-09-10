@@ -38,6 +38,18 @@ Create a new task via the webhook:
 * Postgres 9.6
 * [direnv](http://direnv.net/) _(optional, recommended)_
 
+#### Postgres using Docker
+
+Before doing this you should have read the [Configuration](#configuration) section regarding the `.envrc.example` file. It also recommended that you're using `direnv`.
+
+Copy the extra environment file.
+
+    $ cp .envrc.docker{.example,}
+
+Start the services.
+
+    $ docker-compose up -d
+
 ### Configuration
 
 See .envrc.example for the expected environment variables. The example values have been used for testing.
