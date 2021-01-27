@@ -6,7 +6,7 @@ gem "jbuilder"
 gem "pg"
 gem "pry-rails"
 gem "puma"
-gem "rails", "6.1.0"
+gem "rails", "6.1.1"
 
 group :development do
   gem "listen"
