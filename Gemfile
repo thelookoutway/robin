@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "2.6.5"
+ruby "2.7.4"
 
 gem "jbuilder"
 gem "pg"
@@ -10,9 +10,6 @@ gem "rails", "6.1.4"
 
 group :development do
   gem "listen"
-  gem "spring"
-  gem "spring-commands-rspec"
-  gem "spring-watcher-listen"
 end
 
 group :test do

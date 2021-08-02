@@ -6,3 +6,7 @@ export SLACK_VERIFICATION_TOKEN=secret
 if [ -f ".envrc.docker" ]; then
   source_env .envrc.docker
 fi
+
+if [ -x "$(command -v nix)" ] && [ "$(type -t use_nix)" = function ]; then
+  use_nix
+fi
