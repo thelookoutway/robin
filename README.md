@@ -34,8 +34,8 @@ Create a new task via the webhook:
 
 ### System Dependencies
 
-* Ruby 2.6.5
-* Postgres 9.6
+* Ruby 2.7.4
+* Postgres 10
 * [direnv](http://direnv.net/) _(optional, recommended)_
 
 #### Postgres using Docker
